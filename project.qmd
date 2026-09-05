@@ -1,6 +1,8 @@
 ---
 title: "Project"
 format: html
+execute:
+  echo: false
 ---
 
 ```{r}
@@ -9,3 +11,84 @@ format: html
 
 library(tidyverse)
 ```
+
+## Most Popular Dog Breeds
+
+::: {.callout-note}
+This graph shows the ten most popular dog breeds in 2020 based on American Kennel Club (AKC) registration records. The **Breed** variable lists each dog breed, and the **2020 Rank** variable measures its popularity standing, where a rank of 1 represents the most popular breed (Labrador Retrievers).
+
+These breeds lead in popularity because they combine exceptional **family affection** (creating loyal, loving companions) with high **trainability** (making them easier to housebreak and socialize). In addition, their manageable **energy levels** allow them to adapt well to typical family routines and living spaces.
+:::
+
+```{r}
+#| label: most-popular-dogs
+#| message: false
+
+# Read the breed rankings dataset
+ranks <- read_csv("data/breed_rank_all.csv")
+
+# Select the top 10 breeds for 2020 and order by rank
+top_dogs <- ranks |>
+  slice_min(`2020 Rank`, n = 10) |>
+  mutate(Breed = fct_reorder(Breed, `2020 Rank`, .desc = TRUE))
+
+# Plot the top 10 dog breeds
+ggplot(top_dogs, aes(x = `2020 Rank`, y = Breed)) +
+  geom_point(size = 3.5, color = "steelblue") +
+  scale_x_continuous(breaks = 1:10) +
+  labs(
+    title = "Top 10 Most Popular Dog Breeds (2020)",
+    subtitle = "Rankings from the American Kennel Club",
+    x = "AKC Rank (1 = Most Popular)",
+    y = NULL
+  ) +
+  theme_minimal()
+```
+
+## Combining Rankings with Traits
+
+```{r}
+#| label: join-data
+#| message: false
+
+# Read the traits dataset
+traits <- read_csv("data/breed_traits.csv")
+
+# Clean whitespace in breed names and merge the datasets
+combined_dogs <- ranks |>
+  mutate(Breed = str_squish(Breed)) |>
+  left_join(traits |> mutate(Breed = str_squish(Breed)), by = "Breed")
+
+# Reshape key traits for the top 10 breeds
+top_traits <- combined_dogs |>
+  slice_min(`2020 Rank`, n = 10) |>
+  select(Breed, `2020 Rank`, `Affectionate With Family`, `Trainability Level`, `Energy Level`) |>
+  pivot_longer(
+    cols = c(`Affectionate With Family`, `Trainability Level`, `Energy Level`),
+    names_to = "Trait",
+    values_to = "Score"
+  ) |>
+  mutate(Breed = fct_reorder(Breed, `2020 Rank`, .desc = TRUE))
+
+# Plot the traits
+ggplot(top_traits, aes(x = Score, y = Breed, fill = Trait)) +
+  geom_col(position = "dodge") +
+  scale_x_continuous(limits = c(0, 5), breaks = 1:5) +
+  labs(
+    title = "Key Traits of the Top 10 Most Popular Dog Breeds",
+    subtitle = "Comparing affection, energy, and trainability (scores 1 to 5)",
+    x = "Trait Score",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+### Why These Breeds Dominate
+
+These three traits strongly explain why these breeds lead in popularity:
+
+- **High Family Affection (average 4.7/5):** Almost every top breed scores a maximum 5 for affection. Pet owners prioritize companionship, loyalty, and gentleness with family members.
+- **High Trainability (average 4.5/5):** Most top dogs score a 4 or 5 in trainability, making them easier to house-train, socialise, and handle in public settings compared to more independent breeds.
+- **Manageable & Versatile Energy (average 3.8/5):** Top breeds offer a split that matches modern lifestyles: low-to-moderate energy breeds (like French Bulldogs and Bulldogs at 3/5) thrive in apartments, while high-energy breeds (like Labradors and German Shepherds at 5/5) appeal to active households.
+

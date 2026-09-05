@@ -26,41 +26,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -104,9 +69,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="most-popular-dog-breeds" class="level2">
+<h2 class="anchored" data-anchor-id="most-popular-dog-breeds">Most Popular Dog Breeds</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This graph shows the ten most popular dog breeds in 2020 based on American Kennel Club (AKC) registration records. The <strong>Breed</strong> variable lists each dog breed, and the <strong>2020 Rank</strong> variable measures its popularity standing, where a rank of 1 represents the most popular breed (Labrador Retrievers).</p>
+<p>These breeds lead in popularity because they combine exceptional <strong>family affection</strong> (creating loyal, loving companions) with high <strong>trainability</strong> (making them easier to housebreak and socialize). In addition, their manageable <strong>energy levels</strong> allow them to adapt well to typical family routines and living spaces.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/most-popular-dogs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-rankings-with-traits" class="level2">
+<h2 class="anchored" data-anchor-id="combining-rankings-with-traits">Combining Rankings with Traits</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/join-data-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="why-these-breeds-dominate" class="level3">
+<h3 class="anchored" data-anchor-id="why-these-breeds-dominate">Why These Breeds Dominate</h3>
+<p>These three traits strongly explain why these breeds lead in popularity:</p>
+<ul>
+<li><strong>High Family Affection (average 4.7/5):</strong> Almost every top breed scores a maximum 5 for affection. Pet owners prioritize companionship, loyalty, and gentleness with family members.</li>
+<li><strong>High Trainability (average 4.5/5):</strong> Most top dogs score a 4 or 5 in trainability, making them easier to house-train, socialise, and handle in public settings compared to more independent breeds.</li>
+<li><strong>Manageable &amp; Versatile Energy (average 3.8/5):</strong> Top breeds offer a split that matches modern lifestyles: low-to-moderate energy breeds (like French Bulldogs and Bulldogs at 3/5) thrive in apartments, while high-energy breeds (like Labradors and German Shepherds at 5/5) appeal to active households.</li>
+</ul>
+</section>
+</section>
 
 </main>
 <!-- /main column -->
